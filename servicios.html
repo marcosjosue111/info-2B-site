@@ -1,2 +1,109 @@
-<h1>Servicios</h1>
-<p>Reparación, limpieza, formateo, cotizaciones y más.</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios - Info.2B</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header {
+      background: #1c1c1c;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #4dd0e1;
+      margin-left: 1rem;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .contenedor {
+      padding: 3rem 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .contenedor h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #00e5ff;
+    }
+    .servicio-box {
+      background: #1e1e1e;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 12px #000;
+      transition: transform 0.3s ease;
+    }
+    .servicio-box:hover {
+      transform: translateY(-5px);
+    }
+    .servicio-box h2 {
+      color: #00bcd4;
+      margin-bottom: 0.75rem;
+    }
+    .servicio-box p {
+      color: #cfcfcf;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Info.2B</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="seguimiento.html">Seguimiento</a>
+      <a href="blog.html">Blog</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>Nuestros Servicios</h1>
+
+    <div class="servicio-box">
+      <h2>🛠️ Reparación de Equipos</h2>
+      <p>Desde problemas de encendido hasta pantallas rotas o ventiladores ruidosos. Diagnóstico y reparación completa.</p>
+    </div>
+
+    <div class="servicio-box">
+      <h2>🧼 Mantenimiento Preventivo</h2>
+      <p>Limpieza interna y externa, aplicación de pasta térmica, pruebas de temperatura y ventilación.</p>
+    </div>
+
+    <div class="servicio-box">
+      <h2>💾 Formateo y Recuperación</h2>
+      <p>Formateo profesional, respaldo seguro y recuperación de archivos importantes si es posible.</p>
+    </div>
+
+    <div class="servicio-box">
+      <h2>📦 Cotización y Venta</h2>
+      <p>¿Buscas renovar tu equipo? Te asesoramos con cotizaciones claras y opciones personalizadas.</p>
+    </div>
+
+    <div class="servicio-box">
+      <h2>📡 Configuración de Redes</h2>
+      <p>Instalación de redes LAN, Wi-Fi, compartición de archivos e impresoras, configuración de router y más.</p>
+    </div>
+
+    <div class="servicio-box">
+      <h2>🔒 Seguridad y Optimización</h2>
+      <p>Eliminación de virus, instalación de antivirus, optimización del sistema y protección de datos.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p style="text-align: center; padding: 2rem; background: #1a1a1a; color: #888">&copy; 2025 Info.2B - Soluciones hechas a tu medida</p>
+  </footer>
+</body>
+</html>

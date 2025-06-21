@@ -1,3 +1,144 @@
-<h1>Seguimiento de trabajos</h1>
-<p>Pronto podrás ver el estado de tus equipos aquí.</p>
-<a href="index.html">Volver al Inicio</a>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguimiento de trabajos - Info.2B</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    body {
+      background: #101820;
+      color: #e0e0e0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header {
+      background: #17212b;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #40c4ff;
+      margin-left: 1rem;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .contenedor {
+      padding: 3rem 1.5rem;
+      max-width: 960px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #00e676;
+    }
+    .busqueda {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .busqueda input {
+      padding: 0.7rem;
+      width: 60%;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+    }
+    .resultado {
+      background: #1e2a33;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #00000055;
+    }
+    .resultado h3 {
+      color: #40c4ff;
+    }
+    .resultado p {
+      color: #ccc;
+    }
+    .no-encontrado {
+      color: #ff5252;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Info.2B</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="seguimiento.html">Seguimiento</a>
+      <a href="blog.html">Blog</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main class="contenedor">
+    <h1>Seguimiento de Trabajos</h1>
+
+    <div class="busqueda">
+      <input type="text" id="buscador" placeholder="Ingresa el código de trabajo (ej: T001)">
+    </div>
+
+    <div id="resultado" class="resultado" style="display: none;"></div>
+    <p id="noEncontrado" class="no-encontrado" style="display: none;">No se encontró ningún trabajo con ese código.</p>
+  </main>
+
+  <footer>
+    <p style="text-align: center; padding: 2rem; background: #17212b; color: #888">&copy; 2025 Info.2B - Seguimiento técnico transparente</p>
+  </footer>
+
+  <script>
+    const trabajos = [
+      {
+        id: "T001",
+        cliente: "Juan Pérez",
+        equipo: "Laptop HP Pavilion",
+        estado: "En reparación",
+        ultimaActualizacion: "2025-06-20"
+      },
+      {
+        id: "T002",
+        cliente: "María Gómez",
+        equipo: "PC Gamer Ryzen",
+        estado: "Listo para entrega",
+        ultimaActualizacion: "2025-06-18"
+      }
+    ];
+
+    const buscador = document.getElementById('buscador');
+    const resultadoDiv = document.getElementById('resultado');
+    const noEncontrado = document.getElementById('noEncontrado');
+
+    buscador.addEventListener('input', () => {
+      const valor = buscador.value.trim().toUpperCase();
+      const trabajo = trabajos.find(t => t.id === valor);
+
+      if (valor.length === 0) {
+        resultadoDiv.style.display = 'none';
+        noEncontrado.style.display = 'none';
+        return;
+      }
+
+      if (trabajo) {
+        resultadoDiv.innerHTML = `
+          <h3>Cliente: ${trabajo.cliente}</h3>
+          <p>Equipo: ${trabajo.equipo}</p>
+          <p>Estado actual: <strong>${trabajo.estado}</strong></p>
+          <p>Última actualización: ${trabajo.ultimaActualizacion}</p>
+        `;
+        resultadoDiv.style.display = 'block';
+        noEncontrado.style.display = 'none';
+      } else {
+        resultadoDiv.style.display = 'none';
+        noEncontrado.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>

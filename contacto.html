@@ -1,2 +1,131 @@
-<h1>Contacto</h1>
-<p>Tel: 555-5555 | Dirección: Ciudad Tech | Horario: 8am-6pm</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto - Info.2B</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    body {
+      background: #0e0e0e;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header {
+      background: #151515;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #64ffda;
+      margin-left: 1rem;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #00e5ff;
+      margin-bottom: 2rem;
+    }
+    form {
+      background: #1c1c1c;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00000088;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #80cbc4;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      background: #292929;
+      color: #fff;
+    }
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 2rem;
+      background: #00e676;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #00c853;
+    }
+    .info-contacto {
+      margin-top: 3rem;
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .info-contacto p {
+      margin: 0.5rem 0;
+    }
+    .info-contacto strong {
+      color: #64ffda;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Info.2B</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="seguimiento.html">Seguimiento</a>
+      <a href="blog.html">Blog</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Contáctanos</h1>
+    <form action="https://formsubmit.co/marcosjosue111@gmail.com" method="POST">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="correo">Correo electrónico</label>
+      <input type="email" id="correo" name="correo" required>
+
+      <label for="mensaje">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+
+      <input type="hidden" name="_next" value="https://marcosjosue111.github.io/info-2B-site/agradecimiento.html">
+      <input type="hidden" name="_captcha" value="false">
+
+      <button type="submit">Enviar mensaje</button>
+    </form>
+
+    <div class="info-contacto">
+      <h2>Información de contacto</h2>
+      <p><strong>📞 Teléfono:</strong> +502 1234 5678</p>
+      <p><strong>📍 Ubicación:</strong> Zona 1, Ciudad de Guatemala</p>
+      <p><strong>🕓 Horario:</strong> Lunes a viernes, 8:00 a.m. - 5:00 p.m.</p>
+      <p><strong>✉️ Correo:</strong> marcosjosue111@gmail.com</p>
+    </div>
+  </main>
+
+  <footer>
+    <p style="text-align: center; padding: 2rem; background: #151515; color: #888">&copy; 2025 Info.2B - Estamos para ayudarte</p>
+  </footer>
+</body>
+</html>

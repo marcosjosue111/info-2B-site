@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mensaje Enviado - Info.2B</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    body {
+      background: #0d0d0d;
+      color: #e0f7fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .mensaje {
+      background: #1a1a1a;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 0 15px #00e5ff33;
+      animation: fadeIn 1s ease-in-out;
+    }
+    h1 {
+      font-size: 2.2rem;
+      color: #00e676;
+    }
+    p {
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      color: #b0bec5;
+    }
+    .volver {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      background: #00e5ff;
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+    .volver:hover {
+      background: #00bcd4;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="mensaje">
+    <h1>✅ ¡Mensaje Enviado!</h1>
+    <p>Gracias por contactarnos. Hemos recibido tu mensaje y te responderemos pronto.</p>
+    <a href="index.html" class="volver">Volver al inicio</a>
+  </div>
+</body>
+</html>

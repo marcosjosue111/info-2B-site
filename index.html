@@ -1,28 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<title>Info.2B - Soporte Técnico Informático</title>
-<link rel="stylesheet" href="css/estilos.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Info.2B - Soporte Técnico Informático</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #eaeaea;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #111, #1a1a1a);
+      text-align: center;
+      padding: 2rem;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      color: #00ffe7;
+      margin-bottom: 0.5rem;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      color: #aaa;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .hero a {
+      background: #00ffe7;
+      color: #000;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+    .hero a:hover {
+      background: #00bfa5;
+    }
+    .servicios {
+      background: #141414;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+    .servicio {
+      background: #1f1f1f;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 10px #000;
+    }
+    .servicio h3 {
+      color: #00ffe7;
+      margin-bottom: 0.5rem;
+    }
+    .servicio p {
+      color: #bbb;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
-<header>
-  <h1>Info.2B</h1>
-  <nav>
-    <a href="index.html">Inicio</a>
-    <a href="servicios.html">Servicios</a>
-    <a href="seguimiento.html">Seguimiento</a>
-    <a href="blog.html">Blog</a>
-    <a href="contacto.html">Contacto</a>
-  </nav>
-</header>
-<main>
-  <h2>Bienvenido a Info.2B</h2>
-  <p>Tu solución confiable en soporte, reparación y cotización informática.</p>
-</main>
-<footer>
-  <p>&copy; 2025 Info.2B</p>
-</footer>
-<script src="js/seguimiento.js"></script>
+  <header>
+    <h1>Info.2B</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="seguimiento.html">Seguimiento</a>
+      <a href="blog.html">Blog</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Info.2B</h1>
+    <p>Conectamos tecnología con soluciones. Reparamos, acompañamos y potenciamos tu mundo digital.</p>
+    <a href="servicios.html">¿En qué te podemos ayudar?</a>
+  </section>
+
+  <section class="servicios">
+    <div class="servicio">
+      <h3>Soporte Técnico</h3>
+      <p>Asistencia inmediata para resolver problemas con tu equipo, desde software hasta hardware.</p>
+    </div>
+    <div class="servicio">
+      <h3>Reparaciones</h3>
+      <p>Arreglos completos de laptops y PC: pantallas, teclados, conectores y más.</p>
+    </div>
+    <div class="servicio">
+      <h3>Cotizaciones Inteligentes</h3>
+      <p>Solicita un análisis y presupuesto profesional según tu necesidad y presupuesto.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Info.2B - Tecnología con propósito</p>
+  </footer>
+
+  <script src="js/seguimiento.js"></script>
 </body>
 </html>

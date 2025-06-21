@@ -1,2 +1,102 @@
-<h1>Blog</h1>
-<p>Consejos informáticos y novedades.</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Info.2B</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    body {
+      background: #0a0f1a;
+      color: #f1f1f1;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    header {
+      background: #121826;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    nav a {
+      color: #4dd0e1;
+      margin-left: 1rem;
+      text-decoration: none;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    main {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+    }
+    h1 {
+      text-align: center;
+      color: #00e676;
+      margin-bottom: 2rem;
+    }
+    .post {
+      background: #1e293b;
+      margin-bottom: 2rem;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00000055;
+      transition: transform 0.3s ease;
+    }
+    .post:hover {
+      transform: scale(1.02);
+    }
+    .post h2 {
+      color: #4dd0e1;
+      margin-bottom: 0.5rem;
+    }
+    .post p {
+      color: #ccc;
+    }
+    .post .fecha {
+      font-size: 0.9rem;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Info.2B</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="seguimiento.html">Seguimiento</a>
+      <a href="blog.html">Blog</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Tips & Blog Técnico</h1>
+
+    <div class="post">
+      <div class="fecha">Publicado el 21 de junio de 2025</div>
+      <h2>¿Tu PC va lenta? 5 formas de mejorar su rendimiento</h2>
+      <p>Desde liberar espacio hasta cambiar el disco duro por un SSD. En este artículo te compartimos consejos sencillos para revivir tu equipo sin gastar mucho dinero.</p>
+    </div>
+
+    <div class="post">
+      <div class="fecha">Publicado el 18 de junio de 2025</div>
+      <h2>Cómo evitar que tu laptop se sobrecaliente</h2>
+      <p>¿Tu equipo se calienta demasiado? Aquí te explicamos las causas más comunes y cómo prevenir daños por temperatura excesiva.</p>
+    </div>
+
+    <div class="post">
+      <div class="fecha">Publicado el 15 de junio de 2025</div>
+      <h2>¿Vale la pena reparar una laptop antigua?</h2>
+      <p>Comparativa entre reparar y comprar nuevo. Te ayudamos a decidir cuándo conviene invertir en mantenimiento y cuándo es mejor cambiar de equipo.</p>
+    </div>
+  </main>
+
+  <footer>
+    <p style="text-align: center; padding: 2rem; background: #121826; color: #888">&copy; 2025 Info.2B - Compartiendo conocimientos contigo</p>
+  </footer>
+</body>
+</html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contacto - Info.2B</title>
-  <link rel="stylesheet" href="css/estilos.css">
+  <link rel="stylesheet" href="css/estilos.css" />
   <style>
     body {
       background: #0e0e0e;
@@ -48,7 +48,8 @@
       font-weight: bold;
       color: #80cbc4;
     }
-    input, textarea {
+    input,
+    textarea {
       width: 100%;
       padding: 0.75rem;
       border: none;
@@ -56,6 +57,9 @@
       margin-top: 0.5rem;
       background: #292929;
       color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
     }
     button {
       margin-top: 1.5rem;
@@ -99,20 +103,23 @@
 
   <main>
     <h1>Contáctanos</h1>
-    <form action="https://formsubmit.co/marcosjosue111@gmail.com" method="POST">
-      <label for="nombre">Nombre completo</label>
-      <input type="text" id="nombre" name="nombre" required>
+    <form id="formularioContacto">
+      <label for="cliente">Nombre completo</label>
+      <input type="text" id="cliente" name="cliente" required />
 
-      <label for="correo">Correo electrónico</label>
-      <input type="email" id="correo" name="correo" required>
+      <label for="equipo">Equipo (ej: Laptop Dell)</label>
+      <input type="text" id="equipo" name="equipo" required />
 
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" rows="6" required></textarea>
+      <label for="problema">¿Cuál es el problema?</label>
+      <textarea id="problema" name="problema" rows="4" required></textarea>
 
-      <input type="hidden" name="_next" value="https://marcosjosue111.github.io/info-2B-site/agradecimiento.html">
-      <input type="hidden" name="_captcha" value="false">
+      <label for="telefono_contacto">Teléfono de contacto</label>
+      <input type="tel" id="telefono_contacto" name="telefono_contacto" required />
 
-      <button type="submit">Enviar mensaje</button>
+      <label for="notas_tecnico">Observaciones adicionales</label>
+      <textarea id="notas_tecnico" name="notas_tecnico" rows="3"></textarea>
+
+      <button type="submit">Enviar solicitud</button>
     </form>
 
     <div class="info-contacto">
@@ -125,7 +132,66 @@
   </main>
 
   <footer>
-    <p style="text-align: center; padding: 2rem; background: #151515; color: #888">&copy; 2025 Info.2B - Estamos para ayudarte</p>
+    <p style="text-align: center; padding: 2rem; background: #151515; color: #888">
+      &copy; 2025 Info.2B - Estamos para ayudarte
+    </p>
   </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+
+  <script>
+    // Configuración Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
+      authDomain: "info2b-firebase.firebaseapp.com",
+      projectId: "info2b-firebase",
+      storageBucket: "info2b-firebase.appspot.com",
+      messagingSenderId: "660484913472",
+      appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
+    };
+
+    // Inicializar Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // Referencia al formulario
+    const form = document.getElementById("formularioContacto");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Obtener valores del formulario
+      const cliente = form.cliente.value.trim();
+      const equipo = form.equipo.value.trim();
+      const problema = form.problema.value.trim();
+      const telefono = form.telefono_contacto.value.trim();
+      const notas = form.notas_tecnico.value.trim();
+
+      // Crear objeto trabajo
+      const nuevoTrabajo = {
+        cliente,
+        equipo,
+        problema,
+        estado: "Pendiente",
+        fecha_ingreso: new Date(),
+        telefono_contacto: telefono,
+        tecnico: "Kelvin Juárez",
+        notas_tecnico: notas
+      };
+
+      try {
+        // Guardar en Firestore
+        const docRef = await db.collection("trabajos").add(nuevoTrabajo);
+        alert(
+          `¡Solicitud enviada con éxito!\nTu código de seguimiento es:\n${docRef.id}`
+        );
+        form.reset();
+      } catch (error) {
+        alert("Error al enviar la solicitud: " + error.message);
+      }
+    });
+  </script>
 </body>
 </html>

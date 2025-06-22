@@ -149,76 +149,76 @@
   </footer>
 
   <!-- Firebase SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+  <!-- Este es el bloque final para pegar en contacto.html -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
-      authDomain: "info2b-firebase.firebaseapp.com",
-      projectId: "info2b-firebase",
-      storageBucket: "info2b-firebase.appspot.com",
-      messagingSenderId: "660484913472",
-      appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
+    authDomain: "info2b-firebase.firebaseapp.com",
+    projectId: "info2b-firebase",
+    storageBucket: "info2b-firebase.appspot.com",
+    messagingSenderId: "660484913472",
+    appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const form = document.getElementById("formularioContacto");
-    const mensajeExito = document.getElementById("mensaje-exito");
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const form = document.getElementById("formularioContacto");
+  const mensajeExito = document.getElementById("mensaje-exito");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      const cliente = form.cliente.value.trim();
-      const equipo = form.equipo.value.trim();
-      const problema = form.problema.value.trim();
-      const telefono = form.telefono_contacto.value.trim();
-      const notas = form.notas_tecnico.value.trim();
-      const primerNombre = cliente.split(" ")[0];
+    const cliente = form.cliente.value.trim();
+    const equipo = form.equipo.value.trim();
+    const problema = form.problema.value.trim();
+    const telefono = form.telefono_contacto.value.trim();
+    const notas = form.notas_tecnico.value.trim();
+    const primerNombre = cliente.split(" ")[0];
 
-      <!-- Reemplaza SOLO la parte del bloque try dentro del evento submit con esto: -->
+    try {
+      const docRef = await addDoc(collection(db, "trabajos"), {
+        cliente,
+        equipo,
+        problema,
+        estado: "Pendiente",
+        fecha_ingreso: serverTimestamp(),
+        telefono_contacto: telefono,
+        tecnico: "Kelvin Juárez",
+        notas_tecnico: notas
+      });
 
-try {
-  const docRef = await addDoc(collection(db, "trabajos"), {
-    cliente,
-    equipo,
-    problema,
-    estado: "Pendiente",
-    fecha_ingreso: serverTimestamp(),
-    telefono_contacto: telefono,
-    tecnico: "Kelvin Juárez",
-    notas_tecnico: notas
+      mensajeExito.innerHTML = `
+        <strong>¡Gracias, ${primerNombre}!</strong> Tu solicitud ha sido enviada con éxito. <br><br>
+        <div style="background: #0e402d; color: #a5f2c4; padding: 1rem; border-radius: 10px; border-left: 5px solid #00e676; font-size: 1.1rem; margin: 1rem 0;">
+          ✅ Tu código de seguimiento es:<br>
+          <code id="codigoSeguimiento" style="font-size: 1.3rem; color: #ffffff; background: #2c2c2c; padding: 0.3rem 0.7rem; border-radius: 5px; display: inline-block; margin-top: 0.5rem;">
+            ${docRef.id}
+          </code>
+          <button onclick="copiarCodigo()" style="margin-left: 1rem; padding: 0.3rem 0.6rem; font-size: 0.9rem; background: #00c853; color: #000; border: none; border-radius: 6px; cursor: pointer;">
+            📋 Copiar
+          </button>
+          <p style="margin-top: 1rem; color: #ffc107; font-weight: bold;">
+            ⚠️ Cuidado, no compartas tu código de seguimiento con nadie.
+          </p>
+        </div>
+        Te estaremos contactando pronto para darte más detalles. 😊
+      `;
+
+      mensajeExito.style.display = "block";
+      form.reset();
+      form.scrollIntoView({ behavior: "smooth" });
+
+    } catch (error) {
+      mensajeExito.innerHTML = `<span style="color: #ff5252;">❌ Ocurrió un error al enviar tu solicitud: ${error.message}</span>`;
+      mensajeExito.style.display = "block";
+    }
   });
+</script>
 
-  mensajeExito.innerHTML = `
-    <strong>¡Gracias, ${primerNombre}!</strong> Tu solicitud ha sido enviada con éxito. <br><br>
-    <div style="background: #0e402d; color: #a5f2c4; padding: 1rem; border-radius: 10px; border-left: 5px solid #00e676; font-size: 1.1rem; margin: 1rem 0;">
-      ✅ Tu código de seguimiento es:<br>
-      <code id="codigoSeguimiento" style="font-size: 1.3rem; color: #ffffff; background: #2c2c2c; padding: 0.3rem 0.7rem; border-radius: 5px; display: inline-block; margin-top: 0.5rem;">
-        ${docRef.id}
-      </code>
-      <button onclick="copiarCodigo()" style="margin-left: 1rem; padding: 0.3rem 0.6rem; font-size: 0.9rem; background: #00c853; color: #000; border: none; border-radius: 6px; cursor: pointer;">
-        📋 Copiar
-      </button>
-      <p style="margin-top: 1rem; color: #ffc107; font-weight: bold;">
-      ⚠️ Cuidado, no compartas tu código de seguimiento con nadie.
-    </p>
-    </div>
-    Te estaremos contactando pronto para darte más detalles. 😊
-  `;
-  mensajeExito.style.display = "block";
-  form.reset();
-  form.scrollIntoView({ behavior: "smooth" });
-
-} catch (error) {
-  mensajeExito.innerHTML = `<span style="color: #ff5252;">❌ Ocurrió un error al enviar tu solicitud: ${error.message}</span>`;
-  mensajeExito.style.display = "block";
-}
-    });
-  </script>
-
-  <script>
+<script>
   function copiarCodigo() {
     const codigo = document.getElementById("codigoSeguimiento").innerText;
     navigator.clipboard.writeText(codigo)

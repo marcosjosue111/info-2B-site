@@ -82,7 +82,7 @@
     <h1>Seguimiento de Trabajos</h1>
 
     <div class="busqueda">
-      <input type="text" id="buscador" placeholder="Ingresa el código de trabajo (ej: T001)">
+      <input type="text" id="buscador" placeholder="Ingresa el código de trabajo (ej: trabajo_001)">
     </div>
 
     <div id="resultado" class="resultado" style="display: none;"></div>
@@ -93,51 +93,62 @@
     <p style="text-align: center; padding: 2rem; background: #17212b; color: #888">&copy; 2025 Info.2B - Seguimiento técnico transparente</p>
   </footer>
 
-  <script>
-    const trabajos = [
-      {
-        id: "T001",
-        cliente: "Juan Pérez",
-        equipo: "Laptop HP Pavilion",
-        estado: "En reparación",
-        ultimaActualizacion: "2025-06-20"
-      },
-      {
-        id: "T002",
-        cliente: "María Gómez",
-        equipo: "PC Gamer Ryzen",
-        estado: "Listo para entrega",
-        ultimaActualizacion: "2025-06-18"
-      }
-    ];
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-    const buscador = document.getElementById('buscador');
-    const resultadoDiv = document.getElementById('resultado');
-    const noEncontrado = document.getElementById('noEncontrado');
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
+      authDomain: "info2b-firebase.firebaseapp.com",
+      projectId: "info2b-firebase",
+      storageBucket: "info2b-firebase.firebasestorage.app",
+      messagingSenderId: "660484913472",
+      appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
+    };
 
-    buscador.addEventListener('input', () => {
-      const valor = buscador.value.trim().toUpperCase();
-      const trabajo = trabajos.find(t => t.id === valor);
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-      if (valor.length === 0) {
-        resultadoDiv.style.display = 'none';
-        noEncontrado.style.display = 'none';
-        return;
-      }
+    document.addEventListener("DOMContentLoaded", () => {
+      const buscador = document.getElementById('buscador');
+      const resultadoDiv = document.getElementById('resultado');
+      const noEncontrado = document.getElementById('noEncontrado');
 
-      if (trabajo) {
+      buscador.addEventListener('input', async () => {
+        const valor = buscador.value.trim();
+
+        if (valor.length === 0) {
+          resultadoDiv.style.display = 'none';
+          noEncontrado.style.display = 'none';
+          return;
+        }
+
+        const q = query(collection(db, "trabajos"), where("__name__", "==", valor));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          resultadoDiv.style.display = 'none';
+          noEncontrado.style.display = 'block';
+          return;
+        }
+
+        const doc = querySnapshot.docs[0];
+        const trabajo = doc.data();
+
         resultadoDiv.innerHTML = `
           <h3>Cliente: ${trabajo.cliente}</h3>
           <p>Equipo: ${trabajo.equipo}</p>
-          <p>Estado actual: <strong>${trabajo.estado}</strong></p>
-          <p>Última actualización: ${trabajo.ultimaActualizacion}</p>
+          <p>Problema: ${trabajo.problema}</p>
+          <p>Estado: <strong>${trabajo.estado}</strong></p>
+          <p>Técnico: ${trabajo.tecnico}</p>
+          <p>Teléfono: ${trabajo.telefono_contacto}</p>
+          <p>Notas del técnico: ${trabajo.notas_tecnico}</p>
+          <p>Fecha ingreso: ${trabajo.fecha_ingreso?.toDate().toLocaleDateString() || "No definida"}</p>
+          <p>Fecha entrega: ${trabajo.fecha_entrega?.toDate().toLocaleDateString() || "No definida"}</p>
         `;
         resultadoDiv.style.display = 'block';
         noEncontrado.style.display = 'none';
-      } else {
-        resultadoDiv.style.display = 'none';
-        noEncontrado.style.display = 'block';
-      }
+      });
     });
   </script>
 </body>

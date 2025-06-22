@@ -130,33 +130,18 @@
     <p style="text-align: center; padding: 2rem; background: #1a1a1a; color: #888">&copy; 2025 Info.2B - Soluciones hechas a tu medida</p>
   </footer>
 
-  <script>
-    document.querySelectorAll('.ver-mas').forEach(boton => {
-      boton.addEventListener('click', function (e) {
-        e.preventDefault();
-        const modalId = this.getAttribute('data-modal');
-        document.getElementById(modalId).style.display = 'block';
-      });
-    });
-
-    document.querySelectorAll('.close').forEach(span => {
-      span.addEventListener('click', function () {
-        this.closest('.modal').style.display = 'none';
-      });
-    });
-
-    window.addEventListener('click', function (event) {
-      if (event.target.classList.contains('modal')) {
-        event.target.style.display = 'none';
-      }
-    });
-  </script>
-
   <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
-const firebaseConfig = { /* tu config */ };
+const firebaseConfig = {
+  apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
+  authDomain: "info2b-firebase.firebaseapp.com",
+  projectId: "info2b-firebase",
+  storageBucket: "info2b-firebase.appspot.com",
+  messagingSenderId: "660484913472",
+  appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);

@@ -126,14 +126,6 @@
   <div id="listaServicios"></div>  <!-- Aquí se insertarán las tarjetas -->
 </main>
 
-  <!-- Modales -->
-  <div id="modal1" class="modal"><div class="modal-content"><span class="close">&times;</span><h2>Reparación de Equipos</h2><p>Incluye: revisión inicial, cambio de piezas dañadas, restauración del sistema si es necesario, y prueba final del funcionamiento.</p></div></div>
-  <div id="modal2" class="modal"><div class="modal-content"><span class="close">&times;</span><h2>Mantenimiento Preventivo</h2><p>Incluye: limpieza física, aplicación de pasta térmica, test de ventiladores, informe del estado general del equipo.</p></div></div>
-  <div id="modal3" class="modal"><div class="modal-content"><span class="close">&times;</span><h2>Formateo y Recuperación</h2><p>Incluye: respaldo (si es posible), formateo, instalación de drivers, programas básicos y recuperación de datos si aplica.</p></div></div>
-  <div id="modal4" class="modal"><div class="modal-content"><span class="close">&times;</span><h2>Cotización y Venta</h2><p>Incluye: análisis de necesidades, recomendación de hardware y precios actualizados, asesoría personalizada.</p></div></div>
-  <div id="modal5" class="modal"><div class="modal-content"><span class="close">&times;</span><h2>Configuración de Redes</h2><p>Incluye: conexión de dispositivos, configuración de router, seguridad básica y solución de errores comunes.</p></div></div>
-  <div id="modal6" class="modal"><div class="modal-content"><span class="close">&times;</span><h2>Seguridad y Optimización</h2><p>Incluye: limpieza de malware, instalación de antivirus actualizado, optimización de arranque y procesos innecesarios.</p></div></div>
-
   <footer>
     <p style="text-align: center; padding: 2rem; background: #1a1a1a; color: #888">&copy; 2025 Info.2B - Soluciones hechas a tu medida</p>
   </footer>
@@ -223,6 +215,16 @@ window.onclick = e => { if(e.target.id === "modalServicio") e.target.style.displ
 
 cargarServicios();
 </script>
+
+  <!-- Modal -->
+<div id="modalServicio" class="modal">
+  <div class="modal-content">
+    <span class="close cerrar">&times;</span>
+    <h2 id="modalTitulo"></h2>
+    <p id="modalDescripcion"></p>
+    <p style="color: #64ffda; font-weight:bold">💰 Precio estimado: <span id="modalPrecio"></span></p>
+  </div>
+</div>
+  
 </body>
 </html>
-

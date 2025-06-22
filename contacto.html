@@ -48,8 +48,7 @@
       font-weight: bold;
       color: #80cbc4;
     }
-    input,
-    textarea {
+    input, textarea {
       width: 100%;
       padding: 0.75rem;
       border: none;
@@ -87,6 +86,16 @@
     .info-contacto strong {
       color: #64ffda;
     }
+    #mensaje-exito {
+      margin-top: 2rem;
+      background: #1b2a21;
+      color: #a5f2c4;
+      padding: 1.5rem;
+      border-left: 5px solid #00e676;
+      border-radius: 10px;
+      display: none;
+      font-size: 1.1rem;
+    }
   </style>
 </head>
 <body>
@@ -122,6 +131,8 @@
       <button type="submit">Enviar solicitud</button>
     </form>
 
+    <div id="mensaje-exito"></div>
+
     <div class="info-contacto">
       <h2>Información de contacto</h2>
       <p><strong>📞 Teléfono:</strong> +502 1234 5678</p>
@@ -137,12 +148,11 @@
     </p>
   </footer>
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
-  <script>
-    // Configuración Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
       authDomain: "info2b-firebase.firebaseapp.com",
@@ -152,44 +162,45 @@
       appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
     };
 
-    // Inicializar Firebase
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-
-    // Referencia al formulario
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
     const form = document.getElementById("formularioContacto");
+    const mensajeExito = document.getElementById("mensaje-exito");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // Obtener valores del formulario
       const cliente = form.cliente.value.trim();
       const equipo = form.equipo.value.trim();
       const problema = form.problema.value.trim();
       const telefono = form.telefono_contacto.value.trim();
       const notas = form.notas_tecnico.value.trim();
-
-      // Crear objeto trabajo
-      const nuevoTrabajo = {
-        cliente,
-        equipo,
-        problema,
-        estado: "Pendiente",
-        fecha_ingreso: new Date(),
-        telefono_contacto: telefono,
-        tecnico: "Kelvin Juárez",
-        notas_tecnico: notas
-      };
+      const primerNombre = cliente.split(" ")[0];
 
       try {
-        // Guardar en Firestore
-        const docRef = await db.collection("trabajos").add(nuevoTrabajo);
-        alert(
-          `¡Solicitud enviada con éxito!\nTu código de seguimiento es:\n${docRef.id}`
-        );
+        const docRef = await addDoc(collection(db, "trabajos"), {
+          cliente,
+          equipo,
+          problema,
+          estado: "Pendiente",
+          fecha_ingreso: serverTimestamp(),
+          telefono_contacto: telefono,
+          tecnico: "Kelvin Juárez",
+          notas_tecnico: notas
+        });
+
+        mensajeExito.innerHTML = `
+          <strong>¡Gracias, ${primerNombre}!</strong> Tu solicitud ha sido enviada con éxito. <br>
+          Tu código de seguimiento es: <code>${docRef.id}</code><br>
+          Te estaremos contactando pronto para darte más detalles. 😊
+        `;
+        mensajeExito.style.display = "block";
         form.reset();
+        form.scrollIntoView({ behavior: "smooth" });
+
       } catch (error) {
-        alert("Error al enviar la solicitud: " + error.message);
+        mensajeExito.innerHTML = `<span style="color: #ff5252;">❌ Ocurrió un error al enviar tu solicitud: ${error.message}</span>`;
+        mensajeExito.style.display = "block";
       }
     });
   </script>

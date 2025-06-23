@@ -145,14 +145,19 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+let serviciosCache = {}; // Guardamos servicios en memoria
 
 async function cargarServicios() {
   const snapshot = await getDocs(collection(db, "servicios"));
-  const cont = document.getElementById("listaServicios");
+  console.log("Documentos encontrados:", snapshot.size);
 
-  snapshot.forEach(doc => {
-    const s = doc.data();
-    console.log(s);
+  const cont = document.getElementById("listaServicios");
+  cont.innerHTML = ""; // limpiamos antes de llenar
+
+  snapshot.forEach(docSnap => {
+    const s = docSnap.data();
+    serviciosCache[s.id] = s; // guardamos en cache para uso posterior
+
     const div = document.createElement("div");
     div.className = "servicio-box";
     div.innerHTML = `
@@ -164,40 +169,32 @@ async function cargarServicios() {
     cont.appendChild(div);
   });
 
-  initModales();  // activa los modales
+  initModales();
 }
 
 function initModales() {
   document.querySelectorAll(".ver-mas").forEach(btn => {
-    btn.addEventListener("click", async () => {
+    btn.addEventListener("click", () => {
       const id = btn.dataset.id;
-      const docSnap = await getDocs(collection(db, "servicios"));
-      const s = (await importModulo(id)); // ver abajo
-      mostrarModal(s);
+      const s = serviciosCache[id];
+      if (s) mostrarModal(s);
+      else console.error("Servicio no encontrado:", id);
     });
   });
 }
 
-async function importModulo(id) {
-  const doc = await getDocs(collection(db, "servicios"));
-  let resp;
-  doc.forEach(d=>{
-    if(d.data().id === id) resp = d.data();
-  })
-  return resp;
-}
-
 function mostrarModal(s) {
-  const modal = document.getElementById("modalServicio");
   document.getElementById("modalTitulo").textContent = s.titulo;
   document.getElementById("modalDescripcion").textContent = s.descripcion_detallada;
   document.getElementById("modalPrecio").textContent = s.precio;
-  modal.style.display = "flex";
+  document.getElementById("modalServicio").style.display = "flex";
 }
 
 // cerrar modal
 document.querySelector(".cerrar").onclick = () => document.getElementById("modalServicio").style.display = "none";
-window.onclick = e => { if(e.target.id === "modalServicio") e.target.style.display="none"; };
+window.onclick = e => {
+  if (e.target.id === "modalServicio") e.target.style.display = "none";
+};
 
 cargarServicios();
 </script>

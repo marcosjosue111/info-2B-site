@@ -73,7 +73,6 @@
       background: #0097a7;
     }
 
-    /* Estilos para los modales */
     .modal {
       display: none;
       position: fixed;
@@ -123,7 +122,7 @@
 
 <main class="contenedor">
   <h1>Nuestros Servicios</h1>
-  <div id="listaServicios"></div>  <!-- Aquí se insertarán las tarjetas -->
+  <div id="listaServicios"></div> 
 </main>
 
   <footer>
@@ -145,18 +144,18 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-let serviciosCache = {}; // Guardamos servicios en memoria
+let serviciosCache = {}; 
 
 async function cargarServicios() {
   const snapshot = await getDocs(collection(db, "servicios"));
   console.log("Documentos encontrados:", snapshot.size);
 
   const cont = document.getElementById("listaServicios");
-  cont.innerHTML = ""; // limpiamos antes de llenar
+  cont.innerHTML = ""; 
 
   snapshot.forEach(docSnap => {
     const s = docSnap.data();
-    serviciosCache[s.id] = s; // guardamos en cache para uso posterior
+    serviciosCache[s.id] = s; 
 
     const div = document.createElement("div");
     div.className = "servicio-box";

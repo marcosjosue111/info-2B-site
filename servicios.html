@@ -72,7 +72,6 @@
     .ver-mas:hover {
       background: #0097a7;
     }
-
     .modal {
       display: none;
       position: fixed;
@@ -120,93 +119,96 @@
     </nav>
   </header>
 
-<main class="contenedor">
-  <h1>Nuestros Servicios</h1>
-  <div id="listaServicios"></div> 
-</main>
+  <main class="contenedor">
+    <h1>Nuestros Servicios</h1>
+    <div id="listaServicios"></div>
+  </main>
 
   <footer>
     <p style="text-align: center; padding: 2rem; background: #1a1a1a; color: #888">&copy; 2025 Info.2B - Soluciones hechas a tu medida</p>
   </footer>
 
   <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
-  authDomain: "info2b-firebase.firebaseapp.com",
-  projectId: "info2b-firebase",
-  storageBucket: "info2b-firebase.appspot.com",
-  messagingSenderId: "660484913472",
-  appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyBJoYFUAJLkaeXA4Lu6T_GujtIgs96Ka0I",
+      authDomain: "info2b-firebase.firebaseapp.com",
+      projectId: "info2b-firebase",
+      storageBucket: "info2b-firebase.appspot.com",
+      messagingSenderId: "660484913472",
+      appId: "1:660484913472:web:e6aee88dc824a0c3e362a5"
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-let serviciosCache = {}; 
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    let serviciosCache = {};
 
-async function cargarServicios() {
-  const snapshot = await getDocs(collection(db, "servicios"));
-  console.log("Documentos encontrados:", snapshot.size);
+    async function cargarServicios() {
+      const snapshot = await getDocs(collection(db, "servicios"));
+      console.log("Documentos encontrados:", snapshot.size);
 
-  const cont = document.getElementById("listaServicios");
-  cont.innerHTML = ""; 
+      const cont = document.getElementById("listaServicios");
+      cont.innerHTML = "";
 
-  snapshot.forEach(docSnap => {
-    const s = docSnap.data();
-    const id = docSnap.id;
-    serviciosCache[s.id] = s; 
+      snapshot.forEach(docSnap => {
+        const s = docSnap.data();
+        const id = docSnap.id;
+        serviciosCache[id] = s;
 
-    const div = document.createElement("div");
-    div.className = "servicio-box";
-    div.innerHTML = `
-      <h2>${s.titulo}</h2>
-      <p>${s.descripcion_corta}</p>
-      <p class="precio">${s.precio}</p>
-      <button class="ver-mas" data-id="${s.id}">Ver más</button>
-    `;
-    cont.appendChild(div);
-  });
+        const div = document.createElement("div");
+        div.className = "servicio-box";
+        div.innerHTML = `
+          <h2>${s.titulo}</h2>
+          <p>${s.descripcion_corta}</p>
+          <p class="precio">${s.precio}</p>
+          <button class="ver-mas" data-id="${id}">Ver más</button>
+        `;
+        cont.appendChild(div);
+      });
 
-  initModales();
-}
+      initModales();
+    }
 
-function initModales() {
-  document.querySelectorAll(".ver-mas").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const id = btn.dataset.id;
-      const s = serviciosCache[id];
-      if (s) mostrarModal(s);
-      else console.error("Servicio no encontrado:", id);
-    });
-  });
-}
+    function initModales() {
+      document.querySelectorAll(".ver-mas").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.id;
+          const s = serviciosCache[id];
+          if (s) {
+            mostrarModal(s);
+          } else {
+            console.error("Servicio no encontrado:", id);
+          }
+        });
+      });
+    }
 
-function mostrarModal(s) {
-  document.getElementById("modalTitulo").textContent = s.titulo;
-  document.getElementById("modalDescripcion").textContent = s.descripcion_detallada;
-  document.getElementById("modalPrecio").textContent = s.precio;
-  document.getElementById("modalServicio").style.display = "flex";
-}
+    function mostrarModal(s) {
+      document.getElementById("modalTitulo").textContent = s.titulo;
+      document.getElementById("modalDescripcion").textContent = s.descripcion_detallada;
+      document.getElementById("modalPrecio").textContent = s.precio;
+      document.getElementById("modalServicio").style.display = "flex";
+    }
 
-// cerrar modal
-document.querySelector(".cerrar").onclick = () => document.getElementById("modalServicio").style.display = "none";
-window.onclick = e => {
-  if (e.target.id === "modalServicio") e.target.style.display = "none";
-};
+    // cerrar modal
+    document.querySelector(".cerrar").onclick = () => document.getElementById("modalServicio").style.display = "none";
+    window.onclick = e => {
+      if (e.target.id === "modalServicio") e.target.style.display = "none";
+    };
 
-cargarServicios();
-</script>
+    cargarServicios();
+  </script>
 
-<div id="modalServicio" class="modal">
-  <div class="modal-content">
-    <span class="close cerrar">&times;</span>
-    <h2 id="modalTitulo"></h2>
-    <p id="modalDescripcion"></p>
-    <p style="color: #64ffda; font-weight:bold">💰 Precio estimado: <span id="modalPrecio"></span></p>
+  <!-- Modal -->
+  <div id="modalServicio" class="modal">
+    <div class="modal-content">
+      <span class="close cerrar">&times;</span>
+      <h2 id="modalTitulo"></h2>
+      <p id="modalDescripcion"></p>
+      <p style="color: #64ffda; font-weight:bold">💰 Precio estimado: <span id="modalPrecio"></span></p>
+    </div>
   </div>
-</div>
-  
 </body>
 </html>
